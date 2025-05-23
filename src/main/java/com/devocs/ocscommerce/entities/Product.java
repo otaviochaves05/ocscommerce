@@ -3,6 +3,7 @@ package com.devocs.ocscommerce.entities;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -85,4 +86,14 @@ public class Product {
         this.price = price;
         this.imgUrl = imgUrl;
     }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<Order> getOrders(){
+        return items.stream().map(OrderItem::getOrder).toList();
+    }
+
+
 }

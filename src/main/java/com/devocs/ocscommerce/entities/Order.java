@@ -3,6 +3,8 @@ package com.devocs.ocscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -24,13 +26,8 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
+    @OneToMany(mappedBy = "id.order" )
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order(){}
 
@@ -64,6 +61,14 @@ public class Order {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Order(Long id, Instant moment, OrderStatus status, User client, Payment payment) {
